@@ -2,11 +2,36 @@
 Imports System.Data.SqlClient
 Imports System.Data.SqlDbType
 
-Public Class Form1
+Public Class frmMain
     Dim myconn As New SqlConnection("Data Source=gmap-server\ENCORE,1776;Network Library=DBMSSOCN;Database=PAISProfiles;UID=gmapuser;PWD=Password1")
 
+    Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        Dim pg As New System.Drawing.Printing.PageSettings
+        pg.Margins.Top = 25
+        pg.Margins.Bottom = 25
+        pg.Margins.Left = 100
+        pg.Margins.Right = 100
+        pg.Landscape = True
+        ReportViewer1.SetPageSettings(pg)
+        ReportViewer2.SetPageSettings(pg)
+
+    End Sub
+
+    Private Sub btnRefreshWhyNotFilled_Click(sender As Object, e As EventArgs) Handles btnRefreshWhyNotFilled.Click
+        Me.WhyNotFilledTableAdapter.Fill(Me.PAISProfilesDataSet.WhyNotFilled)
+
+        Me.ReportViewer1.RefreshReport()
+    End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+
+        Me.NeedsRefillsTableAdapter.Fill(Me.PAISProfilesDataSet.NeedsRefills)
+        Me.ReportViewer2.RefreshReport()
+
+    End Sub
+
+    Private Sub btnImportProfiles_Click(sender As Object, e As EventArgs) Handles btnImportProfiles.Click
         myconn.Open()
 
         Using afile As New FileIO.TextFieldParser("C:\PAISPROFILES.CSV")
@@ -59,15 +84,6 @@ Public Class Form1
                             End Select
                         End If
 
-
-
-                        'If insrt.Parameters(i).SqlDbType = SqlDbType.Bit Then
-                        '    insrt.Parameters(i).Value = String.Equals("YES", currentfields, StringComparison.OrdinalIgnoreCase)
-                        'ElseIf insrt.Parameters(i).SqlDbType = SqlDbType.Int Then
-                        'ElseIf
-                        '    insrt.Parameters(i).Value = currentfields
-                        'End If
-
                         i = i + 1
                     Next
                     insrt.ExecuteNonQuery()
@@ -79,10 +95,11 @@ Public Class Form1
 
 
         End Using
+        MsgBox("File has been imported.", MsgBoxStyle.OkOnly, "File Imported")
         myconn.Close()
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+    Private Sub btnImportFillLists_Click(sender As Object, e As EventArgs) Handles btnImportFillLists.Click
         myconn.Open()
 
         Using afile As New FileIO.TextFieldParser("C:\PAIS2.CSV")
@@ -121,15 +138,6 @@ Public Class Form1
                             End Select
                         End If
 
-
-
-                        'If insrt.Parameters(i).SqlDbType = SqlDbType.Bit Then
-                        '    insrt.Parameters(i).Value = String.Equals("YES", currentfields, StringComparison.OrdinalIgnoreCase)
-                        'ElseIf insrt.Parameters(i).SqlDbType = SqlDbType.Int Then
-                        'ElseIf
-                        '    insrt.Parameters(i).Value = currentfields
-                        'End If
-
                         i = i + 1
                     Next
                     insrt.ExecuteNonQuery()
@@ -141,25 +149,8 @@ Public Class Form1
 
 
         End Using
+        MsgBox("File has been imported.", MsgBoxStyle.OkOnly, "File Imported")
         myconn.Close()
-    End Sub
-
-    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'TODO: This line of code loads data into the 'PAISProfilesDataSet1.WhyNotFilled' table. You can move, or remove it, as needed.
-
-        ''TODO: This line of code loads data into the 'PAISProfilesDataSet1.WhyNotFilled' table. You can move, or remove it, as needed.
-        'Me.WhyNotFilledTableAdapter.Fill(Me.PAISProfilesDataSet1.WhyNotFilled)
-        ''TODO: This line of code loads data into the 'PAISProfilesDataSet.CurrentProfiles' table. You can move, or remove it, as needed.
-        'Me.CurrentProfilesTableAdapter.Fill(Me.PAISProfilesDataSet.CurrentProfiles)
-
-        '' Me.ReportViewer1.RefreshReport()
-        'Me.ReportViewer1.RefreshReport()
-
-    End Sub
-
-    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
-        Me.WhyNotFilledTableAdapter.Fill(Me.PAISProfilesDataSet1.WhyNotFilled)
-        Me.ReportViewer1.RefreshReport()
     End Sub
 
 End Class

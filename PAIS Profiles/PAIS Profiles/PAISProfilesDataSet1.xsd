@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="PAISProfilesDataSet1" targetNamespace="http://tempuri.org/PAISProfilesDataSet1.xsd" xmlns:mstns="http://tempuri.org/PAISProfilesDataSet1.xsd" xmlns="http://tempuri.org/PAISProfilesDataSet1.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="MySettings" AppSettingsPropertyName="PAISProfilesConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="PAISProfilesConnectionString (MySettings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.PAIS_Profiles.My.MySettings.GlobalReference.Default.PAISProfilesConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="WhyNotFilledTableAdapter" GeneratorDataComponentClassName="WhyNotFilledTableAdapter" Name="WhyNotFilled" UserDataComponentName="WhyNotFilledTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="PAISProfilesConnectionString (MySettings)" DbObjectName="PAISProfiles.dbo.WhyNotFilled" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT PatientName, RxNumber, DrugName, Sig, HOA FROM WhyNotFilled</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="PatientName" DataSetColumn="PatientName" />
+              <Mapping SourceColumn="RxNumber" DataSetColumn="RxNumber" />
+              <Mapping SourceColumn="DrugName" DataSetColumn="DrugName" />
+              <Mapping SourceColumn="HOA" DataSetColumn="HOA" />
+              <Mapping SourceColumn="Sig" DataSetColumn="Sig" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="PAISProfilesDataSet1" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="PAISProfilesDataSet1" msprop:Generator_UserDSName="PAISProfilesDataSet1">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="WhyNotFilled" msprop:Generator_TableClassName="WhyNotFilledDataTable" msprop:Generator_TableVarName="tableWhyNotFilled" msprop:Generator_RowChangedName="WhyNotFilledRowChanged" msprop:Generator_TablePropName="WhyNotFilled" msprop:Generator_RowDeletingName="WhyNotFilledRowDeleting" msprop:Generator_RowChangingName="WhyNotFilledRowChanging" msprop:Generator_RowEvHandlerName="WhyNotFilledRowChangeEventHandler" msprop:Generator_RowDeletedName="WhyNotFilledRowDeleted" msprop:Generator_RowClassName="WhyNotFilledRow" msprop:Generator_UserTableName="WhyNotFilled" msprop:Generator_RowEvArgName="WhyNotFilledRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="PatientName" msprop:Generator_ColumnVarNameInTable="columnPatientName" msprop:Generator_ColumnPropNameInRow="PatientName" msprop:Generator_ColumnPropNameInTable="PatientNameColumn" msprop:Generator_UserColumnName="PatientName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="RxNumber" msprop:Generator_ColumnVarNameInTable="columnRxNumber" msprop:Generator_ColumnPropNameInRow="RxNumber" msprop:Generator_ColumnPropNameInTable="RxNumberColumn" msprop:Generator_UserColumnName="RxNumber" type="xs:int" />
+              <xs:element name="DrugName" msprop:Generator_ColumnVarNameInTable="columnDrugName" msprop:Generator_ColumnPropNameInRow="DrugName" msprop:Generator_ColumnPropNameInTable="DrugNameColumn" msprop:Generator_UserColumnName="DrugName" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="HOA" msprop:Generator_ColumnVarNameInTable="columnHOA" msprop:Generator_ColumnPropNameInRow="HOA" msprop:Generator_ColumnPropNameInTable="HOAColumn" msprop:Generator_UserColumnName="HOA" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="5" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Sig" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnSig" msprop:Generator_ColumnPropNameInRow="Sig" msprop:Generator_ColumnPropNameInTable="SigColumn" msprop:Generator_UserColumnName="Sig" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
