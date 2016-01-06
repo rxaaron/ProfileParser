@@ -334,6 +334,10 @@ Partial Public Class PAISProfilesDataSet
         
         Private columnQtyDispensed As Global.System.Data.DataColumn
         
+        Private columnDoctor As Global.System.Data.DataColumn
+        
+        Private columnDoctorFax As Global.System.Data.DataColumn
+        
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub New()
@@ -434,6 +438,22 @@ Partial Public Class PAISProfilesDataSet
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property DoctorColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnDoctor
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property DoctorFaxColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnDoctorFax
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
@@ -470,9 +490,9 @@ Partial Public Class PAISProfilesDataSet
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Overloads Function AddNeedsRefillsRow(ByVal RxNumber As Long, ByVal PatientName As String, ByVal DrugName As String, ByVal HOA As String, ByVal PatientGroup As String, ByVal Sig As String, ByVal QtyRemaining As Decimal, ByVal QtyDispensed As Decimal) As NeedsRefillsRow
+        Public Overloads Function AddNeedsRefillsRow(ByVal RxNumber As Long, ByVal PatientName As String, ByVal DrugName As String, ByVal HOA As String, ByVal PatientGroup As String, ByVal Sig As String, ByVal QtyRemaining As Decimal, ByVal QtyDispensed As Decimal, ByVal Doctor As String, ByVal DoctorFax As String) As NeedsRefillsRow
             Dim rowNeedsRefillsRow As NeedsRefillsRow = CType(Me.NewRow,NeedsRefillsRow)
-            Dim columnValuesArray() As Object = New Object() {RxNumber, PatientName, DrugName, HOA, PatientGroup, Sig, QtyRemaining, QtyDispensed}
+            Dim columnValuesArray() As Object = New Object() {RxNumber, PatientName, DrugName, HOA, PatientGroup, Sig, QtyRemaining, QtyDispensed, Doctor, DoctorFax}
             rowNeedsRefillsRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowNeedsRefillsRow)
             Return rowNeedsRefillsRow
@@ -503,6 +523,8 @@ Partial Public Class PAISProfilesDataSet
             Me.columnSig = MyBase.Columns("Sig")
             Me.columnQtyRemaining = MyBase.Columns("QtyRemaining")
             Me.columnQtyDispensed = MyBase.Columns("QtyDispensed")
+            Me.columnDoctor = MyBase.Columns("Doctor")
+            Me.columnDoctorFax = MyBase.Columns("DoctorFax")
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -524,6 +546,10 @@ Partial Public Class PAISProfilesDataSet
             MyBase.Columns.Add(Me.columnQtyRemaining)
             Me.columnQtyDispensed = New Global.System.Data.DataColumn("QtyDispensed", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnQtyDispensed)
+            Me.columnDoctor = New Global.System.Data.DataColumn("Doctor", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnDoctor)
+            Me.columnDoctorFax = New Global.System.Data.DataColumn("DoctorFax", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnDoctorFax)
             Me.columnRxNumber.AllowDBNull = false
             Me.columnPatientName.AllowDBNull = false
             Me.columnPatientName.MaxLength = 50
@@ -535,6 +561,10 @@ Partial Public Class PAISProfilesDataSet
             Me.columnSig.MaxLength = 2147483647
             Me.columnQtyRemaining.AllowDBNull = false
             Me.columnQtyDispensed.AllowDBNull = false
+            Me.columnDoctor.AllowDBNull = false
+            Me.columnDoctor.MaxLength = 50
+            Me.columnDoctorFax.AllowDBNull = false
+            Me.columnDoctorFax.MaxLength = 50
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -1107,6 +1137,28 @@ Partial Public Class PAISProfilesDataSet
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property Doctor() As String
+            Get
+                Return CType(Me(Me.tableNeedsRefills.DoctorColumn),String)
+            End Get
+            Set
+                Me(Me.tableNeedsRefills.DoctorColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property DoctorFax() As String
+            Get
+                Return CType(Me(Me.tableNeedsRefills.DoctorFaxColumn),String)
+            End Get
+            Set
+                Me(Me.tableNeedsRefills.DoctorFaxColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Function IsDrugNameNull() As Boolean
             Return Me.IsNull(Me.tableNeedsRefills.DrugNameColumn)
         End Function
@@ -1482,6 +1534,8 @@ Namespace PAISProfilesDataSetTableAdapters
             tableMapping.ColumnMappings.Add("Sig", "Sig")
             tableMapping.ColumnMappings.Add("QtyRemaining", "QtyRemaining")
             tableMapping.ColumnMappings.Add("QtyDispensed", "QtyDispensed")
+            tableMapping.ColumnMappings.Add("Doctor", "Doctor")
+            tableMapping.ColumnMappings.Add("DoctorFax", "DoctorFax")
             Me._adapter.TableMappings.Add(tableMapping)
         End Sub
         
@@ -1499,7 +1553,7 @@ Namespace PAISProfilesDataSetTableAdapters
             Me._commandCollection(0) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(0).Connection = Me.Connection
             Me._commandCollection(0).CommandText = "SELECT RxNumber, PatientName, DrugName, HOA, PatientGroup, Sig, QtyRemaining, Qty"& _ 
-                "Dispensed FROM dbo.NeedsRefills"
+                "Dispensed, Doctor, DoctorFax FROM dbo.NeedsRefills"
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.Text
         End Sub
         

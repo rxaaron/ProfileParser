@@ -25,11 +25,13 @@ Partial Class frmMain
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
         Dim ReportDataSource1 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
-        Dim ReportDataSource2 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
+        Me.WhyNotFilledBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.PAISProfilesDataSet = New PAIS_Monthly_Check.PAISProfilesDataSet()
+        Me.NeedsRefillsBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.Label1 = New System.Windows.Forms.Label()
         Me.btnImportProfiles = New System.Windows.Forms.Button()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.btnImportFillLists = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -38,29 +40,39 @@ Partial Class frmMain
         Me.Label4 = New System.Windows.Forms.Label()
         Me.TextBox4 = New System.Windows.Forms.TextBox()
         Me.Panel3 = New System.Windows.Forms.Panel()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.Label6 = New System.Windows.Forms.Label()
-        Me.btnRefreshWhyNotFilled = New System.Windows.Forms.Button()
-        Me.btnRefreshNeedsRefills = New System.Windows.Forms.Panel()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Label7 = New System.Windows.Forms.Label()
-        Me.Label8 = New System.Windows.Forms.Label()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.rdoNeedsRefillsNursing = New System.Windows.Forms.RadioButton()
+        Me.rdoNeedsRefillsPharmacy = New System.Windows.Forms.RadioButton()
+        Me.rdoShouldBeOnFillList = New System.Windows.Forms.RadioButton()
         Me.ReportViewer1 = New Microsoft.Reporting.WinForms.ReportViewer()
-        Me.PAISProfilesDataSet = New PAIS_Monthly_Check.PAISProfilesDataSet()
-        Me.WhyNotFilledBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.WhyNotFilledTableAdapter = New PAIS_Monthly_Check.PAISProfilesDataSetTableAdapters.WhyNotFilledTableAdapter()
-        Me.ReportViewer2 = New Microsoft.Reporting.WinForms.ReportViewer()
-        Me.NeedsRefillsBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.NeedsRefillsTableAdapter = New PAIS_Monthly_Check.PAISProfilesDataSetTableAdapters.NeedsRefillsTableAdapter()
+        CType(Me.WhyNotFilledBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PAISProfilesDataSet, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NeedsRefillsBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.Panel5.SuspendLayout()
         Me.Panel3.SuspendLayout()
-        Me.btnRefreshNeedsRefills.SuspendLayout()
-        CType(Me.PAISProfilesDataSet, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.WhyNotFilledBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.NeedsRefillsBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
+        '
+        'WhyNotFilledBindingSource
+        '
+        Me.WhyNotFilledBindingSource.DataMember = "WhyNotFilled"
+        Me.WhyNotFilledBindingSource.DataSource = Me.PAISProfilesDataSet
+        '
+        'PAISProfilesDataSet
+        '
+        Me.PAISProfilesDataSet.DataSetName = "PAISProfilesDataSet"
+        Me.PAISProfilesDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        '
+        'NeedsRefillsBindingSource
+        '
+        Me.NeedsRefillsBindingSource.DataMember = "NeedsRefills"
+        Me.NeedsRefillsBindingSource.DataSource = Me.PAISProfilesDataSet
         '
         'TextBox1
         '
@@ -84,6 +96,15 @@ Partial Class frmMain
         Me.Panel1.Size = New System.Drawing.Size(296, 223)
         Me.Panel1.TabIndex = 1
         '
+        'btnImportProfiles
+        '
+        Me.btnImportProfiles.Location = New System.Drawing.Point(24, 186)
+        Me.btnImportProfiles.Name = "btnImportProfiles"
+        Me.btnImportProfiles.Size = New System.Drawing.Size(244, 23)
+        Me.btnImportProfiles.TabIndex = 1
+        Me.btnImportProfiles.Text = "Import PAIS Profiles"
+        Me.btnImportProfiles.UseVisualStyleBackColor = True
+        '
         'Label1
         '
         Me.Label1.AutoSize = True
@@ -93,15 +114,6 @@ Partial Class frmMain
         Me.Label1.Size = New System.Drawing.Size(19, 20)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "1"
-        '
-        'btnImportProfiles
-        '
-        Me.btnImportProfiles.Location = New System.Drawing.Point(24, 186)
-        Me.btnImportProfiles.Name = "btnImportProfiles"
-        Me.btnImportProfiles.Size = New System.Drawing.Size(244, 23)
-        Me.btnImportProfiles.TabIndex = 1
-        Me.btnImportProfiles.Text = "Import PAIS Profiles"
-        Me.btnImportProfiles.UseVisualStyleBackColor = True
         '
         'Panel2
         '
@@ -178,14 +190,80 @@ Partial Class frmMain
         'Panel3
         '
         Me.Panel3.BackColor = System.Drawing.SystemColors.ControlLight
+        Me.Panel3.Controls.Add(Me.GroupBox1)
         Me.Panel3.Controls.Add(Me.ReportViewer1)
-        Me.Panel3.Controls.Add(Me.btnRefreshWhyNotFilled)
         Me.Panel3.Controls.Add(Me.Label6)
         Me.Panel3.Controls.Add(Me.Label3)
         Me.Panel3.Location = New System.Drawing.Point(12, 241)
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Size = New System.Drawing.Size(948, 400)
         Me.Panel3.TabIndex = 5
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.rdoNeedsRefillsNursing)
+        Me.GroupBox1.Controls.Add(Me.rdoNeedsRefillsPharmacy)
+        Me.GroupBox1.Controls.Add(Me.rdoShouldBeOnFillList)
+        Me.GroupBox1.Location = New System.Drawing.Point(227, 0)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(545, 34)
+        Me.GroupBox1.TabIndex = 4
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "Reports"
+        '
+        'rdoNeedsRefillsNursing
+        '
+        Me.rdoNeedsRefillsNursing.AutoSize = True
+        Me.rdoNeedsRefillsNursing.Location = New System.Drawing.Point(348, 12)
+        Me.rdoNeedsRefillsNursing.Name = "rdoNeedsRefillsNursing"
+        Me.rdoNeedsRefillsNursing.Size = New System.Drawing.Size(132, 17)
+        Me.rdoNeedsRefillsNursing.TabIndex = 2
+        Me.rdoNeedsRefillsNursing.TabStop = True
+        Me.rdoNeedsRefillsNursing.Text = "Needs Refills - Nursing"
+        Me.rdoNeedsRefillsNursing.UseVisualStyleBackColor = True
+        '
+        'rdoNeedsRefillsPharmacy
+        '
+        Me.rdoNeedsRefillsPharmacy.AutoSize = True
+        Me.rdoNeedsRefillsPharmacy.Location = New System.Drawing.Point(199, 12)
+        Me.rdoNeedsRefillsPharmacy.Name = "rdoNeedsRefillsPharmacy"
+        Me.rdoNeedsRefillsPharmacy.Size = New System.Drawing.Size(143, 17)
+        Me.rdoNeedsRefillsPharmacy.TabIndex = 1
+        Me.rdoNeedsRefillsPharmacy.TabStop = True
+        Me.rdoNeedsRefillsPharmacy.Text = "Needs Refills - Pharmacy"
+        Me.rdoNeedsRefillsPharmacy.UseVisualStyleBackColor = True
+        '
+        'rdoShouldBeOnFillList
+        '
+        Me.rdoShouldBeOnFillList.AutoSize = True
+        Me.rdoShouldBeOnFillList.Location = New System.Drawing.Point(68, 12)
+        Me.rdoShouldBeOnFillList.Name = "rdoShouldBeOnFillList"
+        Me.rdoShouldBeOnFillList.Size = New System.Drawing.Size(125, 17)
+        Me.rdoShouldBeOnFillList.TabIndex = 0
+        Me.rdoShouldBeOnFillList.TabStop = True
+        Me.rdoShouldBeOnFillList.Text = "Should Be On Fill List"
+        Me.rdoShouldBeOnFillList.UseVisualStyleBackColor = True
+        '
+        'ReportViewer1
+        '
+        ReportDataSource1.Name = "WhyNotFilled"
+        ReportDataSource1.Value = Me.WhyNotFilledBindingSource
+        Me.ReportViewer1.LocalReport.DataSources.Add(ReportDataSource1)
+        Me.ReportViewer1.LocalReport.ReportEmbeddedResource = "PAIS_Monthly_Check.MissingFromFillList.rdlc"
+        Me.ReportViewer1.Location = New System.Drawing.Point(8, 40)
+        Me.ReportViewer1.Name = "ReportViewer1"
+        Me.ReportViewer1.PageCountMode = Microsoft.Reporting.WinForms.PageCountMode.Actual
+        Me.ReportViewer1.Size = New System.Drawing.Size(922, 357)
+        Me.ReportViewer1.TabIndex = 3
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(29, 14)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(192, 13)
+        Me.Label6.TabIndex = 1
+        Me.Label6.Text = "Choose a report.  Print report if needed."
         '
         'Label3
         '
@@ -197,104 +275,9 @@ Partial Class frmMain
         Me.Label3.TabIndex = 0
         Me.Label3.Text = "4"
         '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(29, 9)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(269, 13)
-        Me.Label6.TabIndex = 1
-        Me.Label6.Text = "Click this button to refresh report.  Print report if needed."
-        '
-        'btnRefreshWhyNotFilled
-        '
-        Me.btnRefreshWhyNotFilled.Location = New System.Drawing.Point(304, 3)
-        Me.btnRefreshWhyNotFilled.Name = "btnRefreshWhyNotFilled"
-        Me.btnRefreshWhyNotFilled.Size = New System.Drawing.Size(626, 23)
-        Me.btnRefreshWhyNotFilled.TabIndex = 2
-        Me.btnRefreshWhyNotFilled.Text = "Refresh Report: Missing from Fill List"
-        Me.btnRefreshWhyNotFilled.UseVisualStyleBackColor = True
-        '
-        'btnRefreshNeedsRefills
-        '
-        Me.btnRefreshNeedsRefills.BackColor = System.Drawing.SystemColors.ControlLight
-        Me.btnRefreshNeedsRefills.Controls.Add(Me.ReportViewer2)
-        Me.btnRefreshNeedsRefills.Controls.Add(Me.Button1)
-        Me.btnRefreshNeedsRefills.Controls.Add(Me.Label7)
-        Me.btnRefreshNeedsRefills.Controls.Add(Me.Label8)
-        Me.btnRefreshNeedsRefills.Location = New System.Drawing.Point(12, 647)
-        Me.btnRefreshNeedsRefills.Name = "btnRefreshNeedsRefills"
-        Me.btnRefreshNeedsRefills.Size = New System.Drawing.Size(948, 428)
-        Me.btnRefreshNeedsRefills.TabIndex = 6
-        '
-        'Button1
-        '
-        Me.Button1.Location = New System.Drawing.Point(304, 3)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(626, 23)
-        Me.Button1.TabIndex = 2
-        Me.Button1.Text = "Refresh Report: Needs Refills"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
-        'Label7
-        '
-        Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(29, 9)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(269, 13)
-        Me.Label7.TabIndex = 1
-        Me.Label7.Text = "Click this button to refresh report.  Print report if needed."
-        '
-        'Label8
-        '
-        Me.Label8.AutoSize = True
-        Me.Label8.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(4, 4)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(19, 20)
-        Me.Label8.TabIndex = 0
-        Me.Label8.Text = "5"
-        '
-        'ReportViewer1
-        '
-        ReportDataSource1.Name = "PAISNotOnFillList"
-        ReportDataSource1.Value = Me.WhyNotFilledBindingSource
-        Me.ReportViewer1.LocalReport.DataSources.Add(ReportDataSource1)
-        Me.ReportViewer1.LocalReport.ReportEmbeddedResource = "PAIS_Monthly_Check.MissingFromFillList.rdlc"
-        Me.ReportViewer1.Location = New System.Drawing.Point(8, 32)
-        Me.ReportViewer1.Name = "ReportViewer1"
-        Me.ReportViewer1.Size = New System.Drawing.Size(922, 365)
-        Me.ReportViewer1.TabIndex = 3
-        '
-        'PAISProfilesDataSet
-        '
-        Me.PAISProfilesDataSet.DataSetName = "PAISProfilesDataSet"
-        Me.PAISProfilesDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
-        '
-        'WhyNotFilledBindingSource
-        '
-        Me.WhyNotFilledBindingSource.DataMember = "WhyNotFilled"
-        Me.WhyNotFilledBindingSource.DataSource = Me.PAISProfilesDataSet
-        '
         'WhyNotFilledTableAdapter
         '
         Me.WhyNotFilledTableAdapter.ClearBeforeFill = True
-        '
-        'ReportViewer2
-        '
-        ReportDataSource2.Name = "PAISNeedsRefills"
-        ReportDataSource2.Value = Me.NeedsRefillsBindingSource
-        Me.ReportViewer2.LocalReport.DataSources.Add(ReportDataSource2)
-        Me.ReportViewer2.LocalReport.ReportEmbeddedResource = "PAIS_Monthly_Check.NeedsRefills.rdlc"
-        Me.ReportViewer2.Location = New System.Drawing.Point(8, 32)
-        Me.ReportViewer2.Name = "ReportViewer2"
-        Me.ReportViewer2.Size = New System.Drawing.Size(922, 393)
-        Me.ReportViewer2.TabIndex = 3
-        '
-        'NeedsRefillsBindingSource
-        '
-        Me.NeedsRefillsBindingSource.DataMember = "NeedsRefills"
-        Me.NeedsRefillsBindingSource.DataSource = Me.PAISProfilesDataSet
         '
         'NeedsRefillsTableAdapter
         '
@@ -305,15 +288,17 @@ Partial Class frmMain
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoScroll = True
-        Me.ClientSize = New System.Drawing.Size(983, 722)
+        Me.ClientSize = New System.Drawing.Size(969, 648)
         Me.Controls.Add(Me.Panel5)
-        Me.Controls.Add(Me.btnRefreshNeedsRefills)
         Me.Controls.Add(Me.Panel3)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.Panel1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "frmMain"
         Me.Text = "PAIS Monthly Check"
+        CType(Me.WhyNotFilledBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PAISProfilesDataSet, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NeedsRefillsBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
         Me.Panel2.ResumeLayout(False)
@@ -322,11 +307,8 @@ Partial Class frmMain
         Me.Panel5.PerformLayout()
         Me.Panel3.ResumeLayout(False)
         Me.Panel3.PerformLayout()
-        Me.btnRefreshNeedsRefills.ResumeLayout(False)
-        Me.btnRefreshNeedsRefills.PerformLayout()
-        CType(Me.PAISProfilesDataSet, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.WhyNotFilledBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.NeedsRefillsBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -343,18 +325,16 @@ Partial Class frmMain
     Friend WithEvents Label4 As Label
     Friend WithEvents TextBox4 As TextBox
     Friend WithEvents Panel3 As Panel
-    Friend WithEvents btnRefreshWhyNotFilled As Button
     Friend WithEvents Label6 As Label
     Friend WithEvents Label3 As Label
-    Friend WithEvents btnRefreshNeedsRefills As Panel
-    Friend WithEvents Button1 As Button
-    Friend WithEvents Label7 As Label
-    Friend WithEvents Label8 As Label
     Friend WithEvents ReportViewer1 As Microsoft.Reporting.WinForms.ReportViewer
     Friend WithEvents WhyNotFilledBindingSource As BindingSource
     Friend WithEvents PAISProfilesDataSet As PAISProfilesDataSet
     Friend WithEvents WhyNotFilledTableAdapter As PAISProfilesDataSetTableAdapters.WhyNotFilledTableAdapter
-    Friend WithEvents ReportViewer2 As Microsoft.Reporting.WinForms.ReportViewer
     Friend WithEvents NeedsRefillsBindingSource As BindingSource
     Friend WithEvents NeedsRefillsTableAdapter As PAISProfilesDataSetTableAdapters.NeedsRefillsTableAdapter
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents rdoNeedsRefillsNursing As RadioButton
+    Friend WithEvents rdoNeedsRefillsPharmacy As RadioButton
+    Friend WithEvents rdoShouldBeOnFillList As RadioButton
 End Class

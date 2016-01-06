@@ -1,33 +1,28 @@
 ﻿Imports Microsoft.VisualBasic.FileIO.TextFieldParser
 Imports System.Data.SqlClient
 Imports System.Data.SqlDbType
+Imports Microsoft.Reporting.WinForms
 
 Public Class frmMain
     Dim myconn As New SqlConnection("Data Source=gmap-server\ENCORE,1776;Network Library=DBMSSOCN;Database=PAISProfiles;UID=gmapuser;PWD=Password1")
 
     Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-        Dim pg As New System.Drawing.Printing.PageSettings
-        pg.Margins.Top = 25
-        pg.Margins.Bottom = 25
-        pg.Margins.Left = 100
-        pg.Margins.Right = 100
-        pg.Landscape = True
-        ReportViewer1.SetPageSettings(pg)
-        ReportViewer2.SetPageSettings(pg)
+        'TODO: This line of code loads data into the 'PAISProfilesDataSet.NeedsRefills' table. You can move, or remove it, as needed.
+        Me.NeedsRefillsTableAdapter.Fill(Me.PAISProfilesDataSet.NeedsRefills)
+        'TODO: This line of code loads data into the 'PAISProfilesDataSet.WhyNotFilled' table. You can move, or remove it, as needed.
+        Me.WhyNotFilledTableAdapter.Fill(Me.PAISProfilesDataSet.WhyNotFilled)
 
     End Sub
 
-    Private Sub btnRefreshWhyNotFilled_Click(sender As Object, e As EventArgs) Handles btnRefreshWhyNotFilled.Click
-        Me.WhyNotFilledTableAdapter.Fill(Me.PAISProfilesDataSet.WhyNotFilled)
+    Private Sub btnRefreshWhyNotFilled_Click(sender As Object, e As EventArgs)
+
 
         Me.ReportViewer1.RefreshReport()
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Sub Button1_Click(sender As Object, e As EventArgs)
 
-        Me.NeedsRefillsTableAdapter.Fill(Me.PAISProfilesDataSet.NeedsRefills)
-        Me.ReportViewer2.RefreshReport()
+
 
     End Sub
 
@@ -43,7 +38,7 @@ Public Class frmMain
             Dim da As New SqlDataAdapter
             Dim trnc As New SqlCommand("TRUNCATE TABLE CurrentProfiles;", myconn)
             trnc.ExecuteNonQuery()
-            Dim insrt As New SqlCommand("INSERT INTO CurrentProfiles (PatientName, PatientGroup, RxNumber, DrugName, QtyDispensed, QtyRemaining, FillList, Sig1, Sig2, Sig3, Sig4, HOA, DrugNDC, DrugSPI) VALUES (@pn, @pg, @rxn, @dn, @qd, @qr, @fl, @s1, @s2, @s3, @s4, @hoa, @ndc, @spi);", myconn)
+            Dim insrt As New SqlCommand("INSERT INTO CurrentProfiles (PatientName, PatientGroup, RxNumber, DrugName, QtyDispensed, QtyRemaining, FillList, Sig1, Sig2, Sig3, Sig4, HOA, DrugNDC, DrugSPI, Doctor, DoctorFax) VALUES (@pn, @pg, @rxn, @dn, @qd, @qr, @fl, @s1, @s2, @s3, @s4, @hoa, @ndc, @spi, @doc, @dfax);", myconn)
             With insrt.Parameters
                 .Add("@pn", VarChar)
                 .Add("@pg", VarChar)
@@ -59,6 +54,8 @@ Public Class frmMain
                 .Add("@hoa", VarChar)
                 .Add("@ndc", BigInt)
                 .Add("@spi", Int)
+                .Add("@doc", VarChar)
+                .Add("@dfax", VarChar)
             End With
             da.InsertCommand = insrt
             While Not afile.EndOfData
@@ -151,6 +148,37 @@ Public Class frmMain
         End Using
         MsgBox("File has been imported.", MsgBoxStyle.OkOnly, "File Imported")
         myconn.Close()
+    End Sub
+
+    Private Sub RadioCheckChanged(sender As Object, e As EventArgs) Handles rdoNeedsRefillsNursing.CheckedChanged, rdoNeedsRefillsPharmacy.CheckedChanged, rdoShouldBeOnFillList.CheckedChanged
+
+
+        Dim rptDataSource1 As New ReportDataSource
+        Dim rptDataSource2 As New ReportDataSource
+
+        rptDataSource1.Name = "NeedsRefills"
+        rptDataSource1.Value = Me.PAISProfilesDataSet.NeedsRefills
+        rptDataSource2.Name = "WhyNotFilled"
+        rptDataSource2.Value = Me.PAISProfilesDataSet.WhyNotFilled
+        Me.WhyNotFilledTableAdapter.Fill(Me.PAISProfilesDataSet.WhyNotFilled)
+        Me.NeedsRefillsTableAdapter.Fill(Me.PAISProfilesDataSet.NeedsRefills)
+        ReportViewer1.LocalReport.DataSources.Clear()
+        ReportViewer1.Reset()
+
+        If rdoNeedsRefillsNursing.Checked = True Then
+            ReportViewer1.LocalReport.DataSources.Add(rptDataSource1)
+            ReportViewer1.LocalReport.ReportEmbeddedResource = "PAIS_Monthly_Check.NeedsRefillsNursing.rdlc"
+        ElseIf rdoNeedsRefillsPharmacy.Checked = True Then
+            ReportViewer1.LocalReport.DataSources.Add(rptDataSource1)
+            ReportViewer1.LocalReport.ReportEmbeddedResource = "PAIS_Monthly_Check.NeedsRefills.rdlc"
+
+        ElseIf rdoShouldBeOnFillList.Checked = True Then
+            ReportViewer1.LocalReport.DataSources.Add(rptDataSource2)
+            ReportViewer1.LocalReport.ReportEmbeddedResource = "PAIS_Monthly_Check.MissingFromFillList.rdlc"
+        Else
+            ReportViewer1.Clear()
+        End If
+        ReportViewer1.RefreshReport()
     End Sub
 
 End Class

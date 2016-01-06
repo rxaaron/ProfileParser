@@ -9,10 +9,10 @@
         <Tables>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="NeedsRefillsTableAdapter" GeneratorDataComponentClassName="NeedsRefillsTableAdapter" Name="NeedsRefills" UserDataComponentName="NeedsRefillsTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="PAISProfilesConnectionString (MySettings)" DbObjectName="PAISProfiles.dbo.NeedsRefills" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="PAISProfilesConnectionString (MySettings)" DbObjectName="PAISProfiles.dbo.NeedsRefills" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
                 <SelectCommand>
-                  <DbCommand CommandType="Text" ModifiedByUser="false">
-                    <CommandText>SELECT RxNumber, PatientName, DrugName, HOA, PatientGroup, Sig, QtyRemaining, QtyDispensed FROM dbo.NeedsRefills</CommandText>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT RxNumber, PatientName, DrugName, HOA, PatientGroup, Sig, QtyRemaining, QtyDispensed, Doctor, DoctorFax FROM dbo.NeedsRefills</CommandText>
                     <Parameters />
                   </DbCommand>
                 </SelectCommand>
@@ -27,6 +27,8 @@
               <Mapping SourceColumn="Sig" DataSetColumn="Sig" />
               <Mapping SourceColumn="QtyRemaining" DataSetColumn="QtyRemaining" />
               <Mapping SourceColumn="QtyDispensed" DataSetColumn="QtyDispensed" />
+              <Mapping SourceColumn="Doctor" DataSetColumn="Doctor" />
+              <Mapping SourceColumn="DoctorFax" DataSetColumn="DoctorFax" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -59,7 +61,7 @@
   <xs:element name="PAISProfilesDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="PAISProfilesDataSet" msprop:Generator_UserDSName="PAISProfilesDataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="NeedsRefills" msprop:Generator_TableClassName="NeedsRefillsDataTable" msprop:Generator_TableVarName="tableNeedsRefills" msprop:Generator_TablePropName="NeedsRefills" msprop:Generator_RowDeletingName="NeedsRefillsRowDeleting" msprop:Generator_RowChangingName="NeedsRefillsRowChanging" msprop:Generator_RowEvHandlerName="NeedsRefillsRowChangeEventHandler" msprop:Generator_RowDeletedName="NeedsRefillsRowDeleted" msprop:Generator_UserTableName="NeedsRefills" msprop:Generator_RowChangedName="NeedsRefillsRowChanged" msprop:Generator_RowEvArgName="NeedsRefillsRowChangeEvent" msprop:Generator_RowClassName="NeedsRefillsRow">
+        <xs:element name="NeedsRefills" msprop:Generator_TableClassName="NeedsRefillsDataTable" msprop:Generator_TableVarName="tableNeedsRefills" msprop:Generator_RowChangedName="NeedsRefillsRowChanged" msprop:Generator_TablePropName="NeedsRefills" msprop:Generator_RowDeletingName="NeedsRefillsRowDeleting" msprop:Generator_RowChangingName="NeedsRefillsRowChanging" msprop:Generator_RowEvHandlerName="NeedsRefillsRowChangeEventHandler" msprop:Generator_RowDeletedName="NeedsRefillsRowDeleted" msprop:Generator_RowClassName="NeedsRefillsRow" msprop:Generator_UserTableName="NeedsRefills" msprop:Generator_RowEvArgName="NeedsRefillsRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="RxNumber" msprop:Generator_ColumnVarNameInTable="columnRxNumber" msprop:Generator_ColumnPropNameInRow="RxNumber" msprop:Generator_ColumnPropNameInTable="RxNumberColumn" msprop:Generator_UserColumnName="RxNumber" type="xs:long" />
@@ -100,10 +102,24 @@
               </xs:element>
               <xs:element name="QtyRemaining" msprop:Generator_ColumnVarNameInTable="columnQtyRemaining" msprop:Generator_ColumnPropNameInRow="QtyRemaining" msprop:Generator_ColumnPropNameInTable="QtyRemainingColumn" msprop:Generator_UserColumnName="QtyRemaining" type="xs:decimal" />
               <xs:element name="QtyDispensed" msprop:Generator_ColumnVarNameInTable="columnQtyDispensed" msprop:Generator_ColumnPropNameInRow="QtyDispensed" msprop:Generator_ColumnPropNameInTable="QtyDispensedColumn" msprop:Generator_UserColumnName="QtyDispensed" type="xs:decimal" />
+              <xs:element name="Doctor" msprop:Generator_ColumnVarNameInTable="columnDoctor" msprop:Generator_ColumnPropNameInRow="Doctor" msprop:Generator_ColumnPropNameInTable="DoctorColumn" msprop:Generator_UserColumnName="Doctor">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DoctorFax" msprop:Generator_ColumnVarNameInTable="columnDoctorFax" msprop:Generator_ColumnPropNameInRow="DoctorFax" msprop:Generator_ColumnPropNameInTable="DoctorFaxColumn" msprop:Generator_UserColumnName="DoctorFax">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="WhyNotFilled" msprop:Generator_TableClassName="WhyNotFilledDataTable" msprop:Generator_TableVarName="tableWhyNotFilled" msprop:Generator_TablePropName="WhyNotFilled" msprop:Generator_RowDeletingName="WhyNotFilledRowDeleting" msprop:Generator_RowChangingName="WhyNotFilledRowChanging" msprop:Generator_RowEvHandlerName="WhyNotFilledRowChangeEventHandler" msprop:Generator_RowDeletedName="WhyNotFilledRowDeleted" msprop:Generator_UserTableName="WhyNotFilled" msprop:Generator_RowChangedName="WhyNotFilledRowChanged" msprop:Generator_RowEvArgName="WhyNotFilledRowChangeEvent" msprop:Generator_RowClassName="WhyNotFilledRow">
+        <xs:element name="WhyNotFilled" msprop:Generator_TableClassName="WhyNotFilledDataTable" msprop:Generator_TableVarName="tableWhyNotFilled" msprop:Generator_RowChangedName="WhyNotFilledRowChanged" msprop:Generator_TablePropName="WhyNotFilled" msprop:Generator_RowDeletingName="WhyNotFilledRowDeleting" msprop:Generator_RowChangingName="WhyNotFilledRowChanging" msprop:Generator_RowEvHandlerName="WhyNotFilledRowChangeEventHandler" msprop:Generator_RowDeletedName="WhyNotFilledRowDeleted" msprop:Generator_RowClassName="WhyNotFilledRow" msprop:Generator_UserTableName="WhyNotFilled" msprop:Generator_RowEvArgName="WhyNotFilledRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="PatientName" msprop:Generator_ColumnVarNameInTable="columnPatientName" msprop:Generator_ColumnPropNameInRow="PatientName" msprop:Generator_ColumnPropNameInTable="PatientNameColumn" msprop:Generator_UserColumnName="PatientName">
